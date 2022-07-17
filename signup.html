@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="./style1.css">
+
+</head>
+
+<body>
+  <div class="registration-form">
+
+    <form id="myForm" action="http://localhost:3000/Signup" method="POST">
+      <h1>Registration form</h1>
+      <p>Full Name:</p>
+      <input type="text" name="name" placeholder="Full Name">
+      <p>User Name:</p>
+      <input type="text" name="username" placeholder="User Name">
+      <p>Email:</p>
+      <input type="email" name="email" placeholder="Email">
+      <p>Phone No:</p>
+      <input type="phone" name="phone" placeholder="Phone No">
+      <p>Password:</p>
+      <input type="password" name="password" placeholder="Password">
+      <button type="submit" >Signup</button>
+    </form>
+  </div>
+
+<script>
+	const myForm =document.getElementById('myForm')
+
+      myForm.addEventListener('submit',function(e){
+        e.preventDefault()
+        const formData = new FormData(this)
+        console.log(formData)
+        const plainFormData = Object.fromEntries(formData.entries());
+        const jsondata = JSON.stringify(plainFormData)
+        console.log(jsondata)
+        fetch('http://localhost:3000/Signup',{
+          method: 'POST',
+          headers: {
+			"Content-Type": "application/json",
+			"Accept": "application/json"
+          },
+          body: jsondata,
+        }).then(()=>{
+          console.log('Success')
+          .catch(err=>{
+            console.log(err)
+          })
+        })
+      })
+</script>
+
+</body>
+
+</html>
